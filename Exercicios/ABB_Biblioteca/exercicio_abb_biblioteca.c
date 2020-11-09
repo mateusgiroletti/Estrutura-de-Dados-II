@@ -64,23 +64,30 @@ Elemento* menorElemento(Elemento* elemento){
 
 Elemento* removeElemento(Elemento* elemento, int dado){
     if(elemento != NULL){
+        //faz a busca pelo elemento na arvore
         if(dado > elemento->dado){
             elemento->direita = removeElemento(elemento->direita, dado);
         }else if(dado < elemento->dado){
             elemento->esquerda = removeElemento(elemento->esquerda, dado);
-        }else{
+        }else{ // Encontrou o elemento
+            // Se o elemento não tiver filho 
             if(elemento->esquerda == NULL && elemento->direita == NULL){
                 free(elemento);
                 return NULL;
-            }else if(elemento->esquerda == NULL && elemento->direita != NULL){
+            }
+            // Se tiver filho a direita
+            else if(elemento->esquerda == NULL && elemento->direita != NULL){
                 Elemento* aux = elemento->direita;
                 free(elemento);
                 return aux;
-            }else if(elemento->esquerda != NULL && elemento->direita == NULL){
+            }
+            // Se tiver filho a esquerda
+            else if(elemento->esquerda != NULL && elemento->direita == NULL){
                 Elemento* aux = elemento->esquerda;
                 free(elemento);
                 return aux;
             }else{
+                //Remove pela direita buscando o menor elemento a esquerda
                 Elemento *aux = menorElemento(elemento->direita);
                 int dadoAux = aux->dado;
                 elemento = removeElemento(elemento, dadoAux);
@@ -92,6 +99,7 @@ Elemento* removeElemento(Elemento* elemento, int dado){
     } 
     return NULL;
 }
+
 int main(){
     int op;
     
