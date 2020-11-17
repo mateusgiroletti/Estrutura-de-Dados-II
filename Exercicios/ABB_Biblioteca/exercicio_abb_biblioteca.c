@@ -9,10 +9,12 @@ typedef struct sElemento{
 } Elemento;
 
 Elemento* inserirElemento(Elemento*, int);
-void imprimiArvore(Elemento*);
 Elemento* buscaElemento(Elemento*, int);
 Elemento* menorElemento(Elemento*);
 Elemento* removeElemento(Elemento*, int);
+void imprimirPreOrdem(Elemento*);
+void imprimirEmOrdem(Elemento*);
+void imprimirPosOrdem(Elemento*);
 
 Elemento* inserirElemento(Elemento* elemento, int dado){
     if(elemento == NULL){
@@ -26,14 +28,6 @@ Elemento* inserirElemento(Elemento* elemento, int dado){
         elemento->direita = inserirElemento(elemento->direita, dado);
     }
     return elemento;
-}
-
-void imprimiArvore(Elemento *elemento){
-	if(elemento!=NULL){
-		printf("%d ",elemento->dado);
-        imprimiArvore(elemento->esquerda);
-		imprimiArvore(elemento->direita);
-	}
 }
 
 Elemento* buscaElemento(Elemento* elemento, int dado){
@@ -100,6 +94,30 @@ Elemento* removeElemento(Elemento* elemento, int dado){
     return NULL;
 }
 
+void imprimirPreOrdem(Elemento *raiz){
+	if(raiz!=NULL){
+		printf("%i ",raiz->dado);
+		imprimirPreOrdem(raiz->esquerda);
+		imprimirPreOrdem(raiz->direita);
+	}
+}
+
+void imprimirEmOrdem(Elemento *raiz){
+	if(raiz!=NULL){
+		imprimirEmOrdem(raiz->esquerda);
+		printf("%i ",raiz->dado);
+		imprimirEmOrdem(raiz->direita);
+	}
+}
+
+void imprimirPosOrdem(Elemento *raiz){
+	if(raiz!=NULL){
+		imprimirPosOrdem(raiz->esquerda);		
+		imprimirPosOrdem(raiz->direita);
+		printf("%i ",raiz->dado);
+	}
+}
+
 int main(){
     int op;
     
@@ -109,12 +127,14 @@ int main(){
         printf("\n----MENU----\n");
         printf("1 - Inserir\n");
         printf("2 - Excluir\n");
-        printf("3 - Listar Arvore\n");
-        printf("4 - Buscar Elemento\n");
-        printf("5 - Sair\n");
+        printf("3 - Listar em Ordem\n");
+        printf("4 - Listar em Pre-Ordem\n");
+        printf("5 - Listar em Pos-Ordem\n");
+        printf("6 - Buscar Elemento\n");
+        printf("7 - Sair\n");
         printf("\nDigite uma das opções: ");
         scanf("%d",&op);
-        if(op == 5){
+        if(op == 7){
             break;
         }else if(op == 1){
             int tamanho;
@@ -143,9 +163,15 @@ int main(){
             }
 
         }else if(op == 3){
-            printf("\n----Arvore----\n\n");
-            imprimiArvore(arvore);   
+           imprimirEmOrdem(arvore);
+            
         }else if(op == 4){
+           imprimirPreOrdem(arvore);
+            
+        }else if(op == 5){
+           imprimirPosOrdem(arvore);
+
+        }else if(op == 6){
             int elementoProcurar;
             printf("Digite o elemento que deseja procurar: ");
             scanf("%d", &elementoProcurar);
@@ -161,7 +187,7 @@ int main(){
             printf("Opção invalida!\n");
         }
 
-    }while(op != 5);
+    }while(op != 7);
 
   
 }
