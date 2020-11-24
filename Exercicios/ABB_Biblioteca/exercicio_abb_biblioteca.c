@@ -82,10 +82,10 @@ Elemento* removeElemento(Elemento* elemento, int dado){
                 return aux;
             }else{
                 //Remove pela direita buscando o menor elemento a esquerda
-                Elemento *aux = menorElemento(elemento->direita);
+                Elemento *aux = menorElemento(elemento->direita); // encontra o menor elemento a direita
                 int dadoAux = aux->dado;
-                elemento = removeElemento(elemento, dadoAux);
-                elemento->dado = dadoAux;
+                elemento = removeElemento(elemento, dadoAux); // manda remover o menor elemento encontrado
+                elemento->dado = dadoAux; // substitui o elemento pelo menor elemento encontrado (auxiliar criado)
                 return elemento;
             }
         }
@@ -139,7 +139,7 @@ int main(){
         }else if(op == 1){
             int tamanho;
 
-            printf("Digite o tamanho da arvore: ");
+            printf("Digite quantos elementos deseja inserir na arvore: ");
             scanf("%d", &tamanho);
 
             for (int i = 0; i < tamanho; i++){
